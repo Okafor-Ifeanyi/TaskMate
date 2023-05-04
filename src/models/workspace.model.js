@@ -1,12 +1,16 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
-const Posts = new Schema({
-    post: { 
+const Workspaces = new Schema({
+    title: { 
         type: 'string',
-        unique: [true, "Post already exists"], 
-        required: [true, "title needed to create post"], 
+        required: [true, "title needed to create workspace"], 
         maxLength: 280 
+    },
+    handles: {
+        type: Map,
+        of: String,
+        required: [true, "At least 1 handle needed"]
     },
     ownerID: {
         type: Schema.Types.ObjectId,
@@ -20,5 +24,5 @@ const Posts = new Schema({
     }
 },  { timestamps: true })
 
-PostModel = mongoose.model('Post', Posts)
-module.exports = PostModel
+WorkspaceModel = mongoose.model('Workspace', Workspaces)
+module.exports = WorkspaceModel

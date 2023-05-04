@@ -12,9 +12,9 @@ const comments = new Schema({
         ref: 'UserModel',
         required: true,
     },
-    postID : {
+    workspaceID : {
         type: Schema.Types.ObjectId,
-        ref: 'PostModel',
+        ref: 'WorkspaceModel',
         required: true, 
     },
     deleted: {

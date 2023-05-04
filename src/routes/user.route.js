@@ -17,8 +17,8 @@ router.get('/deleted', isAuth, isAdmin, deleted);
 router.get('/@:username', getUserbyUsername);
 router.get('/:id', getOneUser);
 router.get('/', fetchAll);
-router.post('/', validate(RegisterSchema), createUser);
-router.post('/login/', validate(LoginSchema), login);
+router.workspace('/', validate(RegisterSchema), createUser);
+router.workspace('/login/', validate(LoginSchema), login);
 router.patch('/:id', validate(UpdateSchema), isAuth, updateUser);
 router.patch('/del/:id', isAuth, deleteUser);
 
