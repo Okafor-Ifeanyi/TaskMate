@@ -19,11 +19,6 @@ class UserService {
         return await userModel.findByAndDelete(id)
     }
 
-    // // Find a user by their username
-    // async findOne(username){
-    //     return await userModel.findOne({username})
-    // } 
-
     // find a user by their id
     async findbyID(filter){
         return await userModel.findOne(filter)

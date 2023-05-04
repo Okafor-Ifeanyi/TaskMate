@@ -1,4 +1,4 @@
-const PostService = require('../services/post.service')
+const WorkspaceService = require('../services/workspace.service')
 const commentService = require('../services/comment.service')
 // const { isAdmin } = require("../middlewares/auth.middleware")
 const { decodeToken } = require("../utils/jwt.util")
@@ -15,11 +15,11 @@ class commentController {
         
 
         try{
-            // Verify post
-            const post = await PostService.findbyID({ _id: info.postID, deleted: false });
+            // Verify workspace
+            const workspace = await WorkspaceService.findbyID({ _id: info.workspaceID, deleted: false });
             
-            if (!post){
-                throw { status: 404, message: 'Post not found' };
+            if (!workspace){
+                throw { status: 404, message: 'Workspace not found' };
             }
 
             // extract token and get current user
@@ -93,7 +93,7 @@ class commentController {
                 await commentService.update(commentID, { deleted: true }); // <= change delete status to 'true'
                 res.status(200).json({ 
                     success: true, 
-                    message: 'Post deleted successfully'});
+                    message: 'Workspace deleted successfully'});
             } else {
                 res.status(403).json({ success: false, message: 'Unauthorized User' })
             }

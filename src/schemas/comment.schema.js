@@ -4,7 +4,7 @@ const joi = require('joi')
 const CommentSchema = joi.object()
     .keys({
         comment: joi.string().required().max(280),
-        postID: joi.string().required().length(24)
+        workspaceID: joi.string().required().length(24)
 
     });
 
