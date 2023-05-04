@@ -11,7 +11,7 @@ const {
     fetchAllComments,
     deletedComments } = require('../controllers/comment.controller')
 
-// routers for post
+// routers for workspace
 router.get('/del/', isAuth, isAdmin, deletedComments)
 router.get('/:id', getOneComment)
 router.get('/', fetchAllComments)
