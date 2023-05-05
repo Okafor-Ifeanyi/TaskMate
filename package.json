@@ -1,11 +1,11 @@
 {
   "name": "post-it_learnable",
   "version": "1.0.0",
-  "description": "Post-it is a social media app that allows users make posts then interact through the comment session and ...",
+  "description": "Task mate a simple platform used to arrange user tasks and control work flow",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
