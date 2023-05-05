@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
-const comments = new Schema({
-    comment: { 
+const boards = new Schema({
+    title: { 
         type: 'string',
-        required: [true, "title needed to create comment"], 
+        required: [true, "title needed to create board"], 
         maxLength: 280 
     },
     ownerID: {
@@ -24,5 +24,5 @@ const comments = new Schema({
     }
 },  { timestamps: true })
 
-commentModel = mongoose.model('comment', comments)
-module.exports = commentModel
+boardModel = mongoose.model('board', boards)
+module.exports = boardModel

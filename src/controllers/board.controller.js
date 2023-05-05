@@ -1,13 +1,13 @@
 const WorkspaceService = require('../services/workspace.service')
-const commentService = require('../services/comment.service')
+const boardService = require('../services/board.service')
 // const { isAdmin } = require("../middlewares/auth.middleware")
 const { decodeToken } = require("../utils/jwt.util")
 
 
-class commentController {
+class boardController {
     
-    // create a comment
-    async createComment(req, res){
+    // create a board
+    async createBoard(req, res){
         const info = req.body;
         let token = req.params.token;
 
@@ -28,10 +28,10 @@ class commentController {
 
             const ownerID = currentUser_id;
             
-            const newcomment = await commentService.createcomment({...info, ownerID})
-            // const newcomment = await commentService.createcomment(info)
+            const newboard = await boardService.createboard({...info, ownerID})
+            // const newboard = await boardService.createboard(info)
             // Success Alert
-            return res.status(200).json({ success: true, message: 'Comment created', data: newcomment })
+            return res.status(200).json({ success: true, message: 'Board created', data: newboard })
         } catch (error) {
             return res.status(403).json({ success: false, message: error })           
         }
@@ -39,17 +39,17 @@ class commentController {
     }
 
     // Update a user
-    async updateComment(req, res){ 
+    async updateBoard(req, res){ 
         const infoID = req.params.id
         const updateData = req.body
         let token = req.params.token;
 
         try{
-            // Verify comment
-            const comment = await commentService.findbyID({ _id: infoID, deleted: false })
+            // Verify board
+            const board = await boardService.findbyID({ _id: infoID, deleted: false })
 
-            if(!comment) {
-                throw { status: false, message: 'Comment not found' };
+            if(!board) {
+                throw { status: false, message: 'Board not found' };
             }
 
             // extract token and get current user
@@ -57,8 +57,8 @@ class commentController {
             const currentUser_id = decodeToken(token)
             
             // Authorize only admin and owner of acc to feature
-            if ( currentUser_id == comment.ownerID) {
-                const updatedData = await commentService.update(infoID, updateData) //  Updates comment
+            if ( currentUser_id == board.ownerID) {
+                const updatedData = await boardService.update(infoID, updateData) //  Updates board
                 return res.status(200).json({ 
                     success: true, 
                     message: 'Body updated successfully', 
@@ -72,17 +72,17 @@ class commentController {
         
     }
 
-    // Delete a single comment
-    async deleteComment(req, res) {
-        const commentID = req.params.id
+    // Delete a single board
+    async deleteBoard(req, res) {
+        const boardID = req.params.id
         let token = req.params.token;
         
         try{
-            // Check if the comment is the database except deleted
-            const category = await commentService.findbyID({ _id: commentID, deleted: false });
+            // Check if the board is the database except deleted
+            const category = await boardService.findbyID({ _id: boardID, deleted: false });
 
             if (!category || category.deleted == true) {
-                throw { success: false, message: 'comment does not exist'}
+                throw { success: false, message: 'board does not exist'}
             }
             // extract token and get current user
             token = req.headers.authorization.split(' ')[1]
@@ -90,7 +90,7 @@ class commentController {
             
             // Authorize only admin and owner of acc to feature
             if ( currentUser_id == category.ownerID ) { 
-                await commentService.update(commentID, { deleted: true }); // <= change delete status to 'true'
+                await boardService.update(boardID, { deleted: true }); // <= change delete status to 'true'
                 res.status(200).json({ 
                     success: true, 
                     message: 'Workspace deleted successfully'});
@@ -104,21 +104,21 @@ class commentController {
     }
 
 
-    // Fetch a single comment by ID
-    async getOneComment(req, res){
+    // Fetch a single board by ID
+    async getOneBoard(req, res){
         const infoID = req.params.id
         
-        // Check if the comment is the database except deleted
+        // Check if the board is the database except deleted
         try{
-            const existingcomment = await commentService.findbyID({
+            const existingboard = await boardService.findbyID({
                 _id: infoID, deleted: false
             })
 
-            if (!existingcomment) {
-                throw { success: false, message: 'comment does not not exist'}
+            if (!existingboard) {
+                throw { success: false, message: 'board does not not exist'}
 
             } else {
-                res.status(201).json({ success: true, message: 'comment Fetched successfully', data: existingcomment })
+                res.status(201).json({ success: true, message: 'board Fetched successfully', data: existingboard })
             }
         } catch (error) {
             res.status(403).json({ success: false, message: error })                       
@@ -126,26 +126,26 @@ class commentController {
         
     }
 
-    // Fetch all comments in the db
-    async fetchAllComments(req, res){
-        // Check if the comment is the database except deleted
+    // Fetch all boards in the db
+    async fetchAllBoards(req, res){
+        // Check if the board is the database except deleted
         try{
-            const existingcomment = await commentService.getAll({deleted: false})
+            const existingboard = await boardService.getAll({deleted: false})
 
-            res.status(200).json({ success: true, message: 'comment fetched successfully', data: existingcomment }) 
+            res.status(200).json({ success: true, message: 'board fetched successfully', data: existingboard }) 
         } catch (error) {
             res.status(403).json({ success: false, message: error })                       
         }
         
     }
 
-    // Fetch all deleted comments in the db
-    async deletedComments(req, res){
-        // Check if the comment is the database except deleted
+    // Fetch all deleted boards in the db
+    async deletedBoards(req, res){
+        // Check if the board is the database except deleted
         try{
-            const existingcomment = await commentService.getAll({deleted: true})
+            const existingboard = await boardService.getAll({deleted: true})
 
-            res.status(200).json({ success: true, message: 'comment fetched successfully', data: existingcomment })
+            res.status(200).json({ success: true, message: 'board fetched successfully', data: existingboard })
         } catch (error) {
             res.status(403).json({ success: false, message: error })                       
         }
@@ -153,4 +153,4 @@ class commentController {
     }
 }
 
-module.exports = new commentController()
+module.exports = new boardController()
