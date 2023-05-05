@@ -1,4 +1,4 @@
-# Post-it by `Prog Bio`
+# Taskmate by `Group 7`
 
 ## Prerequisites
 -   npm installed
@@ -13,14 +13,14 @@
 >   Post-it is ready for use
 
 ## Live Server `@render`
->   [Render Live](https://post-it-q0g4.onrender.com)
+<!-- >   [Render Live](https://post-it-q0g4.onrender.com) -->
 
 ## Postman Documentation
->   [Postman Docs](https://documenter.getpostman.com/view/19026826/2s93JtRPcU)
+>   [Postman Docs](https://documenter.getpostman.com/view/19026826/2s93eWzsSf)
 
 
 ## Model Diagram
->   [Diagrams on dbdiagrams.io](https://dbdiagram.io/d/640748ba296d97641d861a12)
+>   [Diagrams on dbdiagrams.io](https://dbdiagram.io/d/64530448dca9fb07c477a04a)
 
 ## Design Pattern
 For this API `layered_structure` was abopted for the main purpose of creating 
@@ -47,7 +47,7 @@ the delete `http request` in the controller is set to `PATCH` => updates deleted
     "deleted": true
 }
 ```
-All get `Post` request in the db have been set to get request by `id` and `delete == false`. To prevent a user from calling a 
+All get request in the db have been set to get request by `id` and `delete == false`. To prevent a user from calling a 
 deleted request 
 -     _await PostService.findOne({deleted: false})_
 -     _await PostService.findbyID({ post: info.post, deleted: false })_
@@ -73,9 +73,9 @@ Deleted posts are treated as unexisting to the users on Postit but all initial d
     
 ### Environment
     Used postman environment to keep url paths neat and simple
--   _env name_ => `DEV: post-it`
+-   _env name_ => `DEV: TaskMate`
 -   _variable_ => `USER` // {{USER}}
--   _initial value_ => `localhost:3838/api/v1/user/`
+-   _initial value_ => `localhost:3838/api/v1/users/`
 
 ### Set an Environment Variable
     Automate authorizstion setting by setting your `jwt_token` to this an _env variable_ 
