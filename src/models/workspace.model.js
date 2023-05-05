@@ -8,7 +8,7 @@ const Workspaces = new Schema({
         maxLength: 280 
     },
     handles: {
-        type: Map,
+        type: Array,
         of: String,
         required: [true, "At least 1 handle needed"]
     },
