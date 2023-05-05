@@ -153,7 +153,7 @@ class WorkspaceController {
         try{
             const existingWorkspace = await WorkspaceService.getAll({deleted: true})
 
-            res.status(200).json({ success: true, message: 'comment fetched successfully', data: existingWorkspace})
+            res.status(200).json({ success: true, message: 'Workspace fetched successfully', data: existingWorkspace})
         } catch (error) {
             res.status(403).json({ success: false, message: error })                       
         }

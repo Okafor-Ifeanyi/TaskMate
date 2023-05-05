@@ -7,7 +7,7 @@ const { fetchAllWorkspaces } = require("../controllers/workspace.controller")
 const { fetchAllComments } = require("../controllers/comment.controller")
 
 
-router.get('/users/:@email/workspaces/', testmiddleware, fetchAllWorkspaces)
+// router.get('/users/:@email/workspaces/', testmiddleware, fetchAllWorkspaces)
 router.get('/users/:@email/workspaces/:id/comments/', testmiddleware, fetchAllComments)
 router.get('/docs', (req, res) => res.redirect('https://documenter.getpostman.com/view/19026826/2s93eWzsSf'))
 

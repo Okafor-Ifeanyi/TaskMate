@@ -12,11 +12,11 @@ const {
     deletedWorkspaces } = require('../controllers/workspace.controller')
 
 // routers for workspace
-router.get('/del/', isAuth, isAdmin, deletedWorkspaces)
+router.delete('/:id', isAuth, deleteWorkspace)
+router.get('/del', isAuth, isAdmin, deletedWorkspaces)
 router.get('/:id', getOneWorkspace)
 router.get('/', fetchAllWorkspaces)
 router.post('/', validate(WorkspaceSchema), isAuth, createWorkspace)
-router.patch('/del/:id', isAuth, deleteWorkspace)
 router.patch('/:id', validate(WorkspaceSchema), isAuth, updateWorkspace)
 
 
