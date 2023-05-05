@@ -48,18 +48,6 @@ the delete `http request` in the controller is set to `PATCH` => updates deleted
     "deleted": true
 }
 ```
-All get request in the db have been set to get request by `id` and `delete == false`. To prevent a user from calling a 
-deleted request 
--     _await PostService.findOne({deleted: false})_
--     _await PostService.findbyID({ post: info.post, deleted: false })_
-
-Deleted posts are treated as unexisting to the users on Postit but all initial data on the system are still intact.
-   
-**Detected Loophole**
-
-1.     Deleted posts can still not be duplicated
-2.     Recreation of a deleted post will throw an error because posts are unique
-3.     Removal of post uniqueness to accomodate the last stated loophole will cause major redundancy with reason of eg that a client could click their create post button 5* due to a lagging device, slow intrnet... and have the same post created 5*, which would only cause such a client more pain
 
 ## **Validations**
 
