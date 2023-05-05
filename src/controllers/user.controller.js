@@ -38,17 +38,17 @@ class UserController {
 
         try{
             // check if user exists already
-            const existingusername = await service.findbyID({ email: info.email, deleted: false })
+            // const existingusername = await service.findbyID({  username: info.username, deleted: false })
 
-            const existingemail = await service.findbyID({ username: info.username, deleted: false })
+            const existingemail = await service.findbyID({ email: info.email, deleted: false })
 
             // Checks if there is an existing username or email in the system
-            if( existingusername || existingemail) { 
+            if( existingemail ) { 
                 return res.status(403).json({ success: false, message: 'User already exists' })
             }
             // To generate the avatar and image tag(holds avatarUrl & email)
             const { avatarUrl } = await generateRandomAvatar(info.email)
-            const imageTag = `<img src= ${avatarUrl}  alt= Avatar image for ${info.username}  />`;
+            const imageTag = `<img src= ${avatarUrl}  alt= Avatar image for ${info.email}  />`;
 
             // creates a new user (... => spreads out all the data )
             const newUser = await service.createUser({ ...info, avatarUrl, imageTag })
@@ -78,7 +78,7 @@ class UserController {
            
             // Since the username is a unique key, we have to make it consistent 
             if (existingUser) {
-                const available = await service.findbyID({ username: updateData.username, deleted: false })
+                const available = await service.findbyID({ email: updateData.email, deleted: false })
                 
                 // throws an error if the username selected is taken
                 if (available){ 
@@ -143,13 +143,13 @@ class UserController {
     }
 
     // Fetch a single user by username
-    async getUserbyUsername(req, res){
-        const username = req.params.username
+    async getUserbyEmail(req, res){
+        const email = req.params.email
 
         try{
              // Check if the book to delete is the database
             const existingUser = await service.findbyID({
-                username: username, deleted: false
+                email: email, deleted: false
             })
 
             if (!existingUser) return res.status(403).json({
@@ -233,8 +233,8 @@ class UserController {
 
 module.exports = new UserController()
 
-try{
+// try{
             
-} catch (error) {
-    res.status(403).json({ success: false, message: error })                       
-}
+// } catch (error) {
+//     res.status(403).json({ success: false, message: error })                       
+// }

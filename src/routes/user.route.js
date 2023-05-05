@@ -7,20 +7,20 @@ const { login,
     createUser,
     updateUser,
     deleteUser,
-    getUserbyUsername,
+    getUserbyEmail,
     getOneUser,
     fetchAll,
     deleted } = require('../controllers/user.controller')
 
 // routers for user
 router.get('/deleted', isAuth, isAdmin, deleted);
-router.get('/@:username', getUserbyUsername);
+router.get('/@:email', getUserbyEmail);
 router.get('/:id', getOneUser);
 router.get('/', fetchAll);
 router.post('/', validate(RegisterSchema), createUser);
 router.post('/login/', validate(LoginSchema), login);
 router.patch('/:id', validate(UpdateSchema), isAuth, updateUser);
-router.patch('/del/:id', isAuth, deleteUser);
+router.delete('/:id', isAuth, deleteUser);
 
 
 module.exports = router 
