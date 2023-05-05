@@ -140,7 +140,7 @@ class WorkspaceController {
     async fetchAllWorkspaces(req, res){
         try{
             const existingWorkspace = await WorkspaceService.getAll({deleted: false})
-            res.status(200).json({ success: true, message: 'comment fetched successfully', data: existingWorkspace }) 
+            res.status(200).json({ success: true, message: 'board fetched successfully', data: existingWorkspace }) 
 
         } catch (error) {
             res.status(403).json({ success: false, message: error })                       
@@ -149,7 +149,7 @@ class WorkspaceController {
 
     // Fetch all deleted workspaces in the db
     async deletedWorkspaces(req, res){
-        // Check if the comment is the database except deleted
+        // Check if the board is the database except deleted
         try{
             const existingWorkspace = await WorkspaceService.getAll({deleted: true})
 
