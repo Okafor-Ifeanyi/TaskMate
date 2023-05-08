@@ -10,13 +10,16 @@ class boardController {
     async createBoard(req, res){
         const info = req.body;
         let token = req.params.token;
+        
+        var link = req.originalUrl 
+        const workspaceID = link.slice(50, 74)
 
         // const token = req.params.token
         
 
         try{
             // Verify workspace
-            const workspace = await WorkspaceService.findbyID({ _id: info.workspaceID, deleted: false });
+            const workspace = await WorkspaceService.findbyID({ _id: workspaceID, deleted: false });
             
             if (!workspace){
                 throw { status: 404, message: 'Workspace not found' };
@@ -28,7 +31,7 @@ class boardController {
 
             const ownerID = currentUser_id;
             
-            const newboard = await boardService.createboard({...info, ownerID})
+            const newboard = await boardService.createboard({...info, ownerID, workspaceID})
             // const newboard = await boardService.createboard(info)
             // Success Alert
             return res.status(200).json({ success: true, message: 'Board created', data: newboard })
@@ -44,9 +47,12 @@ class boardController {
         const updateData = req.body
         let token = req.params.token;
 
+        var link = req.originalUrl 
+        const workspaceID = link.slice(50, 74)
+        
         try{
             // Verify board
-            const board = await boardService.findbyID({ _id: infoID, deleted: false })
+            const board = await boardService.findbyID({ _id: workspaceID, deleted: false })
 
             if(!board) {
                 throw { status: false, message: 'Board not found' };
