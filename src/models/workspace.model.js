@@ -8,8 +8,8 @@ const Workspaces = new Schema({
         maxLength: 280 
     },
     handles: {
-        type: Array,
-        of: String,
+        type: 'array',
+        of: 'string',
         required: [true, "At least 1 handle needed"]
     },
     ownerID: {
