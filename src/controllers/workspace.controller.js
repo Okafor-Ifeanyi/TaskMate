@@ -1,5 +1,6 @@
 const WorkspaceService = require('../services/workspace.service') 
 const { decodeToken } = require("../utils/jwt.util") 
+const sendMail = require("../utils/email.util")
 
 
 
@@ -13,7 +14,7 @@ class WorkspaceController {
         // Validate and verify Workspace (Twitter Tweet Standard)
         try{
             // Verify workspace
-            const workspace = await WorkspaceService.findbyID({ workspace: info.workspace, deleted: false })
+            const workspace = await WorkspaceService.findbyID({ title: info.title, deleted: false })
             if (workspace){
                 throw { status: 403, message: 'Workspace already exists' };
             }
@@ -27,6 +28,10 @@ class WorkspaceController {
             
             // Create workspace
             const newWorkspace = await WorkspaceService.createWorkspace({...info, ownerID})
+
+            var link = req.protocol + '://' + req.get('host') + req.originalUrl + newWorkspace._id + '/'
+            await sendMail(info.handles, link, info.title)
+            
             // Success Alert
             return res.status(200).json({ success: true, message: 'Workspace created', data: newWorkspace })
         } 
