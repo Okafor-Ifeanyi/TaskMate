@@ -1,6 +1,6 @@
 # Taskmate by `Group 7`
 
-## Prerequisites 
+## Prerequisites
 -   npm installed
 -   IDE eg _vscode_
 -   CLI eg _postman_
