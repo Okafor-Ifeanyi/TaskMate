@@ -1,5 +1,7 @@
 # Taskmate by `Group 7`
 
+completed in 5 days to meet up with scrum deliverables 
+
 ## Prerequisites
 -   npm installed
 -   IDE eg _vscode_
